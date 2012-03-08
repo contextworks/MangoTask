@@ -11,12 +11,6 @@ class Model_Queue_Task extends Mango {
 		'updated'  => array('type' => 'int'),
 	);
 
-		'request'  => array('type' => 'string', 'filters' => array(array('serialize'))),
-		'uri'      => array('type' => 'string'),
-		'message'  => array('type' => 'string'),
-		'response' => array('type' => 'string')
-	);
-
 	/**
 	 * Finds and activates the next task to be executed
 	 *
@@ -25,7 +19,7 @@ class Model_Queue_Task extends Mango {
 	public function get_next()
 	{
 		$values = $this->db()->command( array(
-			'new'           => TRUE
+			'new'           => TRUE,
 			'findAndModify' => $this->_collection,
 			'sort'          => array('created' => 1),
 			'query'         => array('status' => array_search('queued', $this->_fields['status']['values'])),
