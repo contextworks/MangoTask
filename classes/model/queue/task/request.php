@@ -93,21 +93,6 @@ class Model_Queue_Task_Request extends Model_Task {
 		return $this->status === 'completed';
 	}
 
-	public function as_array( $clean = TRUE )
-	{
-		$array = parent::as_array($clean);
-
-		if ( ! $clean)
-		{
-			if ( $array['valid'] && ! isset($array['uri']))
-			{
-				$array['uri'] = $this->request()->uri();
-			}
-		}
-
-		return $array;
-	}
-
 	public function error_message($all = FALSE)
 	{
 		return ! $all
@@ -123,7 +108,7 @@ class Model_Queue_Task_Request extends Model_Task {
 	 *
 	 * @return   Request   Request object
 	 */
-	protected function request()
+	public function request()
 	{
 		return isset($this->uri)
 			? Request::factory($this->uri)
