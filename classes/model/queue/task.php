@@ -31,7 +31,7 @@ class Model_Queue_Task extends Mango {
 			)
 		));
 
-		return Mango::factory('task', Arr::get($values,'value', array()), TRUE);
+		return Mango::factory('task', Arr::get($values,'value', array()), Mango::CLEAN);
 	}
 
 	public function create($safe = TRUE)
