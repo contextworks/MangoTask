@@ -19,8 +19,8 @@ class Model_Queue_Task extends Mango {
 	public function get_next()
 	{
 		$values = $this->db()->command( array(
-			'new'           => TRUE,
 			'findAndModify' => $this->_collection,
+			'new'           => TRUE,
 			'sort'          => array('created' => 1),
 			'query'         => array('status' => array_search('queued', $this->_fields['status']['values'])),
 			'update'        => array(
@@ -31,7 +31,7 @@ class Model_Queue_Task extends Mango {
 			)
 		));
 
-		return $this->values( Arr::get($values,'value', array()), TRUE);
+		return Mango::factory('task', Arr::get($values,'value', array()), TRUE);
 	}
 
 	public function create($safe = TRUE)
