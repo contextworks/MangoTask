@@ -64,13 +64,13 @@ class Model_Queue_Task_Request extends Model_Task {
 				// analyse response
 				if ( $response->status() > 199 && $response->status() < 300)
 				{
-					// task completed
-					break;
+					// task completed successfully
+					return TRUE;
 				}
 				else
 				{
 					// server error
-					$error = strtr("Invalid response status (:status) while executing :uri", array(
+					$this->message = strtr("Invalid response status (:status) while executing :uri", array(
 						':uri'      => $request->uri(),
 						':status'   => $response->status(),
 					));
@@ -79,18 +79,14 @@ class Model_Queue_Task_Request extends Model_Task {
 			catch ( Exception $e)
 			{
 				// request error
-				$error = strtr("Unable to execute task: :uri, (:msg)", array(
+				$this->message = strtr("Unable to execute task: :uri, (:msg)", array(
 					':uri'     => $request->uri(),
 					':msg'     => $e->getMessage(),
 				));
 			}
 		}
 
-		// update status
-		$this->status  = isset($error) ? 'failed' : 'completed';
-		$this->message = isset($error) ? $error   : NULL;
-
-		return $this->status === 'completed';
+		return FALSE;
 	}
 
 	public function error_message($all = FALSE)
