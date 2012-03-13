@@ -12,7 +12,6 @@ class Model_Queue_Task_Request extends Model_Task {
 			'_fields' => array(
 				'request'  => array('type' => 'string', 'filters' => array(array('serialize'))),
 				'uri'      => array('type' => 'string'),
-				'message'  => array('type' => 'string'),
 				'response' => array('type' => 'string')
 			)
 		));

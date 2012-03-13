@@ -5,7 +5,8 @@ class Model_Queue_Task extends Mango {
 	protected $_type;
 
 	protected $_fields = array(
-		'type'      => array('type' => 'string', 'required' => TRUE),
+		'type'     => array('type' => 'string', 'required' => TRUE),
+		'message'  => array('type' => 'string'),
 		'status'   => array('type' => 'enum', 'values' => array('queued', 'active', 'failed', 'completed')),
 		'created'  => array('type' => 'int'),
 		'updated'  => array('type' => 'int'),
